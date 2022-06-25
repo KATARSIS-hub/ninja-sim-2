@@ -1,0 +1,99 @@
+rs = game:GetService("RunService").RenderStepped
+plr = game:GetService('Players').LocalPlayer
+local Mercury = loadstring(game:HttpGet("https://raw.githubusercontent.com/deeeity/mercury-lib/master/src.lua"))()
+
+local GUI = Mercury:Create{
+    Name = "Ninja Simulator 2",
+    Size = UDim2.fromOffset(850, 400),
+    Theme = Mercury.Themes.Dark,
+    Link = "https://github.com/deeeity/mercury-lib"
+}
+
+local Tab = GUI:Tab{
+	Name = "Scripts",
+	Icon = "rbxassetid://2609397568"
+}
+
+GUI:Notification{
+	Title = "Alert",
+	Text = "Press Del to open/hide UI",
+	Duration = 3,
+	Callback = function() end
+}
+
+GUI:Credit{
+	Name = "kukiv4",
+	Description = nil,
+	V3rm = nil,
+	Discord = "KATARSIS#2576"
+}
+
+Tab:Button{
+	Name = "Equip All farm tools",
+	Description = nil,
+	Callback = function()
+    equip()
+    end
+}
+
+Tab:Button{
+	Name = "Anti AFk",
+	Description = "Turn on, if you dislike to be kicked after 20 minutes",
+	Callback = function()
+        local VirtualUser = game:GetService("VirtualUser")
+        plr.Idled:connect(function()
+        print("AntiAFK")
+        VirtualUser:CaptureController()
+        VirtualUser:ClickButton2(Vector2.new())
+        end)
+        wait(0.3)
+        GUI:Notification{
+            Title = "Alert",
+            Text = "Anti AFK activated!",
+            Duration = 3,
+            Callback = function() end
+        }
+    end
+}
+
+Tab:Toggle{
+	Name = "Auto Farm",
+	StartingState = false,
+	Description = nil,
+	Callback = function(state)
+    _G.Train = state
+    if state then
+        farm()
+    end
+    end
+}
+
+function equip()
+plr:findFirstChildOfClass('Backpack')['Noodle Farming Tool'].Parent = plr.Character
+plr:findFirstChildOfClass('Backpack')['Power'].Parent = plr.Character
+plr:findFirstChildOfClass('Backpack')['Health'].Parent = plr.Character
+plr:findFirstChildOfClass('Backpack')['Speed'].Parent = plr.Character
+end
+
+function farm()
+    spawn(function()
+        while rs:Wait() and _G.Train do
+           game:GetService("Players").LocalPlayer.Character:WaitForChild("Power").E:FireServer()
+        end
+    end)
+    spawn(function()
+        while rs:Wait() and _G.Train do
+           game:GetService("Players").LocalPlayer.Character:WaitForChild("Speed").TrainEvent:FireServer()
+        end
+    end)
+    spawn(function()
+        while rs:Wait() and _G.Train do
+           game:GetService("Players").LocalPlayer.Character:WaitForChild("Health").Eat:FireServer()
+        end
+    end)
+    spawn(function()
+        while rs:Wait() and _G.Train do
+    game:GetService("Players").LocalPlayer.Character:WaitForChild("Noodle Farming Tool").E:FireServer()
+        end
+    end)
+end
