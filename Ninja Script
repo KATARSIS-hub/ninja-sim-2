@@ -37,6 +37,14 @@ Tab:Button{
 }
 
 Tab:Button{
+	Name = "Equip Wheat Farm Tool",
+	Description = nil,
+	Callback = function()
+        plr:findFirstChildOfClass('Backpack')['Noodle Farming Tool'].Parent = plr.Character
+    end
+}
+
+Tab:Button{
 	Name = "Anti AFk",
 	Description = "Turn on, if you dislike to be kicked after 20 minutes",
 	Callback = function()
@@ -69,7 +77,6 @@ Tab:Toggle{
 }
 
 function equip()
-plr:findFirstChildOfClass('Backpack')['Noodle Farming Tool'].Parent = plr.Character
 plr:findFirstChildOfClass('Backpack')['Power'].Parent = plr.Character
 plr:findFirstChildOfClass('Backpack')['Health'].Parent = plr.Character
 plr:findFirstChildOfClass('Backpack')['Speed'].Parent = plr.Character
